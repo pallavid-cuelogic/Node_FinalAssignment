@@ -1,6 +1,7 @@
 import express from 'express';
-const router =express.Router();
-import userData from '../model/user';
+import userData from '../Model/User';
+
+const router = express.Router();
 
 router.post('/',function(req,res){
     let username=req.body.username;

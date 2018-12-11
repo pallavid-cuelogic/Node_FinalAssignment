@@ -1,79 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>User Info</title>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>  
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.dev.js"></script>
-</head>
-<body>
-    <header>
-        <nav class="navbar navbar-inverse">
-                
-        </nav>
-    </header>
-
-
-    <div class="well col-md-4 col-md-offset-4">
-            <form>
-                <div class="form-group">
-                    <label for="uname">UserName</label>
-                    <input type="email" class="form-control" id="uname" placeholder="Enter Username" name="uname">
-                </div>
-                <div class="form-group">
-                    <label for="uname">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="Enter Password" name="password">
-                </div>
-                <div class="form-group">
-                  <label for="fname">First Name</label>
-                  <input type="text" class="form-control" id="fname" placeholder="Enter Name" name="fname">
-                </div>
-                <div class="form-group">
-                  <label for="lname">Last Name</label>
-                  <input type="text" class="form-control" id="lname" placeholder="Enter LastName" name="lname">
-                </div>
-                <button type="button" class="btn btn-success" onclick="signup()">Submit</button>
-                <button type="button" class="btn btn-primary" onclick="signin()">SignIn</button>
-            </form>
-    </div>
-
-    <script>
-            function signin() {
-                window.location.replace('/signin');
-            }
-            function signup(){
-            var username=$('#uname').val();
-            var password=$('#password').val();
-            var fname=$('#fname').val();
-            var lname=$('#lname').val();
-            $.ajax({
-                url:'http://localhost:3000',
-                method:'post',
-                data:{
-                    username:username,
-                    password:password,
-                    fname:fname,
-                    lname:lname
-                },
-                success:function(res){
-                    confirm(res);
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>User's Information</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>  
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.dev.js"></script>
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-inverse"></nav>
+        </header>
+        <div class="well col-md-4 col-md-offset-4">
+                <form>
+                    <div class="form-group">
+                        <label for="uname">UserName</label>
+                        <input type="email" class="form-control" id="uname" placeholder="Enter Username" name="uname">
+                    </div>
+                    <div class="form-group">
+                        <label for="uname">Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Enter Password" name="password">
+                    </div>
+                    <div class="form-group">
+                        <label for="fname">First Name</label>
+                        <input type="text" class="form-control" id="fname" placeholder="Enter Name" name="fname">
+                        </div>
+                    <div class="form-group">
+                        <label for="lname">Last Name</label>
+                        <input type="text" class="form-control" id="lname" placeholder="Enter LastName" name="lname">
+                    </div>
+                    <button type="button" class="btn btn-success" onclick="signup()">Submit</button>
+                    <button type="button" class="btn btn-primary" onclick="signin()">SignIn</button>
+                </form>
+        </div>
+        <script>
+                function signin() {
+                    window.location.replace('/signin');
                 }
-            })
-            }
-            var socket = io.connect('http://localhost:3000');
-            socket.on('news', function (data) {
-                alert(data.hello);
-                socket.emit('my other event', { msg: 'Thank you' });
-            });
-    </script>
-         
- 
-    
-</body>
+                function signup(){
+                    var username=$('#uname').val();
+                    var password=$('#password').val();
+                    var fname=$('#fname').val();
+                    var lname=$('#lname').val();
+                    $.ajax({
+                        url:'http://localhost:3000',
+                        method:'post',
+                        data:{
+                            username: username,
+                            password: password,
+                            fname: fname,
+                            lname: lname
+                        },
+                        success:function(res){
+                            confirm(res);
+                        }
+                    })
+                }
+                var socket = io.connect('http://localhost:3000');
+                socket.on('news', function (data) {
+                    alert(data.hello);
+                    socket.emit('Other event', { msg: 'Thank you' });
+                });
+        </script>    
+    </body>
 </html>

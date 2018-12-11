@@ -1,7 +1,7 @@
 import express from 'express';
 const router =express.Router();
 import jwt from 'jsonwebtoken';
-import userData from '../model/user';
+import userData from '../Model/User';
 
 router.get('/',function(req,res){
     jwt.verify(req.query.token, 'imsecrete',function(err,decode){
@@ -25,7 +25,7 @@ router.put('/',function(req,res){
         if(err){
             throw err;
         } else {
-            console.log("updated successfully");
+            console.log("Information Updated Successfully");
         }
     })
 })
