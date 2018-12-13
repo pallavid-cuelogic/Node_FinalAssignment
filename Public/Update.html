@@ -12,6 +12,7 @@
     <body>
         <header>
             <nav class="navbar navbar-inverse">
+                <h1 style="color: white; margin-left: 400px;">Update User's Information</h1>
                 <button class="btn btn-primary" onclick="back()">Back</button>
             </nav>
         </header>
@@ -32,29 +33,29 @@
                 <button type="button" class="btn btn-success" onclick="edit()">Edit</button>
                 <button type="button" class="btn btn-success" onclick="save()">Save</button>
             </form>
-        </div>            
+        </div>        
         <script>
             var id=document.cookie;
-            var token=id.split("=");
-            $.ajax({
-                url:'http://localhost:3000/userdata',
-                method:'get',
-                data:{
-                    token:token[1]
-                },
-                success:function(res){
-                console.log(res);
-                $('#uname').val(res.UserName);
-                $('#fname').val(res.FName);
-                $('#lname').val(res.LName);
-                }
-            })
+            var token=id.split("=");        
+                $.ajax({
+                    url:'http://localhost:3000/userdata',
+                    method:'get',
+                    data:{
+                        token:token[1]
+                    },
+                    success:function(res){
+                        console.log(res);
+                    $('#uname').val(res.UserName);
+                    $('#fname').val(res.FName);
+                    $('#lname').val(res.LName);
+                    }
+                })
             function edit() {
                 $("#fname").prop('disabled',false);
                 $("#lname").prop('disabled',false);
             }
             function save() {
-                alert("save");
+                alert("Profile Updated");
                 $.ajax({
                     url:'http://localhost:3000/userdata',
                     method:'put',
@@ -67,7 +68,7 @@
             }
             function back() {
                 window.location.replace("/profile?id=" + token[1]);
-            }        
+            }    
         </script>
     </body>
 </html>

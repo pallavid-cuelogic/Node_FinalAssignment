@@ -24,7 +24,7 @@
                 </div>
                 <div class="form-group">
                     <label for="uname">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="Enter Password" name="password">
+                    <input type="password" class="form-control" id="password" placeholder="******" name="password">
                 </div>
                 <button type="button" class="btn btn-success" onclick="signin()">Submit</button>
             </form>
@@ -38,18 +38,15 @@
             function signin() {
                 var username=$('#uname').val();
                 var password=$('#password').val();
-                $.ajax({
-                    url:'http://localhost:3000/signin',
-                    method:'post',
-                    data:{
-                        username:username,
-                        password:password
-                    },
-                    success:function(res){
-                        document.cookie =  'token='+res.token;
-                        window.location.replace('/profile?id='+res.token); 
+                
+                if(username =="pallavi@g.com" )
+                {
+                    if(password == "abc")
+                    {
+                        alert("Succsessfull");
+                        window.location.replace('/admin');
                     }
-                })
+                }
             }    
         </script>
     </body>

@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">       
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>User's Information</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -13,29 +13,30 @@
     <body>
         <header>
             <nav class="navbar navbar-inverse">
-                <button class="btn btn-success" type="button" onclick="update()">Update</button>
-                <button class="btn btn-success" type="button" onclick="search()">Search</button>
-                <button class="nav navbar-right btn btn-success" type="button" onclick="logout()">Logout</button>
+                <button class="btn btn-success" type="button" style="margin-left:30px; margin-top: 10px"onclick="update()">Update</button>
+                <button class="btn btn-success" type="button" style="margin-left:30px; margin-top: 10px" onclick="search()">Search</button>
+                <button class="nav navbar-right btn btn-success" style="margin-right:30px; margin-top: 10px" type="button" onclick="logout()">Logout</button>
             </nav>
         </header>
+        <div class="well"></div>
         <script>
             var id=document.cookie;
             var token=id.split("=");
             $.ajax({
-                url:'http://localhost:3000/userdata',
-                method:'get',
-                data:{
-                    token:token[1]
-                },
-                success:function(res){
-                    console.log(res);
-                    var data =  `<div>UserName: <h3>${res.UserName}</h3>`;
-                    data += `First Name :<h3>${res.FName}</h3>`; 
-                    data += `Last Name :<h3>${res.LName}</h3>`;                
-                    data += "</div>";
-                    $('.well').append("<br/>"+data);
-                }
-            })
+                    url:'http://localhost:3000/userdata',
+                    method:'get',
+                    data:{
+                        token:token[1]
+                    },
+                    success:function(res){
+                        console.log(res);
+                            var data =  `<div>UserName: <h3>${res.UserName}</h3>`;
+                            data += `First Name :<h3>${res.FName}</h3>`; 
+                            data += `Last Name :<h3>${res.LName}</h3>`;                
+                            data += "</div>";
+                            $('.well').append("<br/>"+data);
+                    }
+                })
             function update() {    
                 window.location.replace("/update?id=" + token[1]);
             }
@@ -45,10 +46,10 @@
             function logout() {
                 window.location.replace("/signin");
             }
-            var socket = io.connect('http://localhost:3000/profile');
-            socket.on('news', function (data) {
+                var socket = io.connect('http://localhost:3000/profile');
+                socket.on('news', function (data) {
                 alert(data.hello);
-                socket.emit('Other event', { msg: 'On Profile Page' });
+                socket.emit('my other event', { msg: 'I am on profile page' });
             });
         </script>
     </body>

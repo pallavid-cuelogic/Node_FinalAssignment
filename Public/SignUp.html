@@ -13,58 +13,64 @@
     </head>
     <body>
         <header>
-            <nav class="navbar navbar-inverse"></nav>
+            <nav class="navbar navbar-inverse">
+                <h1 style="color: white; margin-left: 400px;">Insert User's Information Here</h1>
+            </nav>
         </header>
         <div class="well col-md-4 col-md-offset-4">
-                <form>
-                    <div class="form-group">
-                        <label for="uname">UserName</label>
-                        <input type="email" class="form-control" id="uname" placeholder="Enter Username" name="uname">
-                    </div>
-                    <div class="form-group">
-                        <label for="uname">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Enter Password" name="password">
-                    </div>
-                    <div class="form-group">
-                        <label for="fname">First Name</label>
-                        <input type="text" class="form-control" id="fname" placeholder="Enter Name" name="fname">
-                        </div>
-                    <div class="form-group">
-                        <label for="lname">Last Name</label>
-                        <input type="text" class="form-control" id="lname" placeholder="Enter LastName" name="lname">
-                    </div>
-                    <button type="button" class="btn btn-success" onclick="signup()">Submit</button>
-                    <button type="button" class="btn btn-primary" onclick="signin()">SignIn</button>
-                </form>
+            <form>
+                <div class="form-group">
+                    <label for="uname">User Name</label>
+                    <input type="email" class="form-control" id="uname" placeholder="Enter Username" name="uname">
+                </div>
+                <div class="form-group">
+                    <label for="uname">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="********" name="password">
+                </div>
+                <div class="form-group">
+                    <label for="fname">First Name</label>
+                    <input type="text" class="form-control" id="fname" placeholder="Enter Name" name="fname">
+                </div>
+                <div class="form-group">
+                    <label for="lname">Last Name</label>
+                    <input type="text" class="form-control" id="lname" placeholder="Enter LastName" name="lname">
+                </div>
+                <button type="button" class="btn btn-success" onclick="signup()">Submit</button>
+                <button type="button" class="btn btn-primary" onclick="signin()">SignIn</button>
+                <button type="button" class="btn btn-primary" onclick="admin()">Admin</button>
+            </form>
         </div>
         <script>
                 function signin() {
                     window.location.replace('/signin');
                 }
+                function admin() {
+                    window.location.replace('/adminAuth');
+                }
                 function signup(){
-                    var username=$('#uname').val();
-                    var password=$('#password').val();
-                    var fname=$('#fname').val();
-                    var lname=$('#lname').val();
-                    $.ajax({
-                        url:'http://localhost:3000',
-                        method:'post',
-                        data:{
-                            username: username,
-                            password: password,
-                            fname: fname,
-                            lname: lname
-                        },
-                        success:function(res){
-                            confirm(res);
-                        }
-                    })
+                var username=$('#uname').val();
+                var password=$('#password').val();
+                var fname=$('#fname').val();
+                var lname=$('#lname').val();
+                $.ajax({
+                    url:'http://localhost:3000',
+                    method:'post',
+                    data:{
+                        username:username,
+                        password:password,
+                        fname:fname,
+                        lname:lname
+                    },
+                    success:function(res){
+                        confirm(res);
+                    }
+                })
                 }
                 var socket = io.connect('http://localhost:3000');
                 socket.on('news', function (data) {
                     alert(data.hello);
-                    socket.emit('Other event', { msg: 'Thank you' });
+                    socket.emit('my other event', { msg: 'Thank you' });
                 });
-        </script>    
+        </script>        
     </body>
 </html>

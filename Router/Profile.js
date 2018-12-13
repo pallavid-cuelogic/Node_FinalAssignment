@@ -16,10 +16,10 @@ router.get('/',function(req,res){
    let clientIp = requestIp.getClientIp(req);
    let date = moment().format("MMMM Do YYYY, h:mm:ss a");
 
-   jwt.verify(req.query.id,'imsecrete',function(err,decode){
+   jwt.verify(req.query.id,'SecreteKey',function(err,decode){
        if(err){
            throw err;
-       } else  {
+       }else{
            let activity = {
                UserName : decode.username,
                IP:clientIp,
@@ -28,8 +28,7 @@ router.get('/',function(req,res){
            }
            userActivity.findOneAndUpdate({UserName:decode.username}, activity, {upsert:true}, function(err, doc){
                 if (err) return res.send(500, { error: err });
-        });
-           
+        });           
        }
    })
    res.sendFile(path.join('/home/pallavi/CuelogicWork/Node/Final_Assignment' + '/Public'+'/Profile.html'))

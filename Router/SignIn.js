@@ -1,11 +1,11 @@
 import express from 'express';
-const router = express.Router();
 import path from 'path';
 import userData from '../Model/User';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-const secretekey = 'imsecrete'
+const router = express.Router();
+const secretekey = 'SecreteKey'
 
 router.get('/',function(req,res){
    res.sendFile(path.join('/home/pallavi/CuelogicWork/Node/Final_Assignment' + '/Public'+'/SignIn.html'))
@@ -22,7 +22,7 @@ router.post('/',function(req,res){
                 if(user.UserName === uname){
                     if(bcrypt.compareSync(password, user.Password)) {                        
                         var token = jwt.sign({
-                                username:uname
+                                username: uname
                             },
                             secretekey,
                             {
@@ -31,7 +31,7 @@ router.post('/',function(req,res){
                             console.log("Logged In Successfullly ");
                             res.json({token:token});
                     }else {
-                        console.log("Credientials not Authorised");
+                        console.log("Credientials are not Authorised");
                     }
                 }
             })

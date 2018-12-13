@@ -14,15 +14,18 @@
             <h1 style="color: black; margin-left: 550px;">Search User</h1>
         </header>
         <nav class="navbar navbar-inverse">
-            <form class="form-inline">
+            <form >
                 <input class="form-control mr-sm-2" type="text" placeholder="UserName" id="searchinput">
-                <button class="btn btn-success" type="button" onclick="search()">Search</button>
+                <button class="btn btn-success" type="button" onclick="viewProfile()">View User's Profile</button>
                 <button class="btn btn-primary"type="button" onclick="back()">Back</button>
+                <input class="form-control mr-sm-2" type="text" placeholder="Search To Update" id="searchToUpdate">
+                <button class="btn btn-primary"type="button" onclick="adminUpdate()">Update User's Profile</button>
+                <button class="btn btn-primary"type="button" onclick="userActivity()">User Activity</button>
             </form> 
         </nav>    
         <div class="jumbotron"></div>
         <script>
-                function search() {
+                function viewProfile() {
                     var username = $('#searchinput').val();
                     $.ajax({
                     url:'http://localhost:3000/searchuser',
@@ -58,7 +61,27 @@
                     var token=id.split("=");
                     console.log("token");                
                     window.location.replace("/profile?id=" + token[1]);
-                }            
+                }  
+                function adminUpdate(){
+                    var id=document.cookie;
+                    var token=id.split("=");
+                    window.location.replace("/update?id=" + token[1]);
+
+                    //     var username=$('#searchToUpdate').val();
+                    //     $.ajax({
+                    //         url:'http://localhost:3000/adminUpdate',
+                    //         method:'post',
+                    //         data:{
+                    //             username: username
+                    //     },
+                    //     success:function(res){
+                    //         window.location.replace('/adminUpdate'); 
+                    //     }
+                    // })
+                }
+                function userActivity(){
+                    window.location.replace("/lastLoggedIn");
+                }
         </script>
     </body>
 </html>
