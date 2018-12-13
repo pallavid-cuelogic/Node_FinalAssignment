@@ -41,13 +41,13 @@
             </form>
         </div>
         <script>
-                function signin() {
-                    window.location.replace('/signin');
-                }
-                function admin() {
-                    window.location.replace('/adminAuth');
-                }
-                function signup(){
+            function signin() {
+                window.location.replace('/signin');
+            }
+            function admin() {
+                window.location.replace('/adminAuth');
+            }
+            function signup(){
                 var username=$('#uname').val();
                 var password=$('#password').val();
                 var fname=$('#fname').val();
@@ -63,14 +63,16 @@
                     },
                     success:function(res){
                         confirm(res);
+                        document.cookie = 'token='+res.token;
+                        window.location.replace('/profile?id='+res.token); 
                     }
                 })
                 }
-                var socket = io.connect('http://localhost:3000');
-                socket.on('news', function (data) {
-                    alert(data.hello);
-                    socket.emit('my other event', { msg: 'Thank you' });
-                });
+            var socket = io.connect('http://localhost:3000');
+            socket.on('news', function (data) {
+                alert(data.hello);
+                socket.emit('my other event', { msg: 'Thank you' });
+            });
         </script>        
     </body>
 </html>
